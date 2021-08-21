@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Book Listing</string>
+    <string name="no_books">No Books Found.</string>
+    <string name="connection_lost">Please connect to the Internet!</string>
+    <string name="search_books">Go ahead! Search some Books.</string>
+    <string name="no_info">No Information Available</string>
+    <string name="search_here">Search here</string>
+    <string name="searchImg">Search Icon</string>
+    <string name="bookImg">Book Image</string>
+</resources>
