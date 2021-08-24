@@ -20,9 +20,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Helper methods related to requesting and receiving earthquake data from USGS.
- */
 public final class QueryUtils {
 
     public static final String LOG_TAG = QueryUtils.class.getSimpleName();
@@ -36,7 +33,6 @@ public final class QueryUtils {
     }
 
     public static List<Book> fetchBookData(String requestUrl) {
-
 
         // Create URL object
         Log.e(LOG_TAG,"Fetch Book Data");
@@ -95,7 +91,7 @@ public final class QueryUtils {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(LOG_TAG, "Problem retrieving the book JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -110,8 +106,7 @@ public final class QueryUtils {
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
-            InputStreamReader inputStreamReader;
-            inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
             BufferedReader reader = new BufferedReader(inputStreamReader);
             String line = reader.readLine();
             while (line != null) {
@@ -121,7 +116,6 @@ public final class QueryUtils {
         }
         return output.toString();
     }
-
 
 
     /**
@@ -135,11 +129,10 @@ public final class QueryUtils {
             return null;
         }
 
-
         // Create an empty ArrayList that we can start adding books to
         List<Book> books = new ArrayList<>();
 
-        // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
+        // Try to parse the bookJSON. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
@@ -154,8 +147,6 @@ public final class QueryUtils {
             }
 
             JSONArray bookArray = jsonRootObject.optJSONArray("items");
-            //forms a list of first
-            // 10 books results at max
             for(int i=0;i<bookArray.length();i++) {
                 JSONObject currentBook = bookArray.getJSONObject(i);
 
@@ -222,5 +213,4 @@ public final class QueryUtils {
         // Return the list of books
         return books;
     }
-
 }

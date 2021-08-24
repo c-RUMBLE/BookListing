@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.example.android.booklisting;
 
 import android.app.Activity;
@@ -37,7 +22,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -51,16 +35,10 @@ public class BookActivity extends AppCompatActivity
     public static final String LOG_TAG = BookActivity.class.getName();
 
     BookAdapter adapter;
-
     private TextView mEmptyStateTextView;
-
     EditText editText;
-
     ProgressBar mProgress;
-
     static String finalUrl;
-
-    //Extras :- How to display image in app is its url is available
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +50,10 @@ public class BookActivity extends AppCompatActivity
 
         editText = findViewById(R.id.search_text);
 
-        assert editText != null;
         editText.setOnClickListener(v -> editText.setCursorVisible(true));
 
         editText.setOnEditorActionListener((v, actionId, event) -> {
             if(actionId == EditorInfo.IME_ACTION_SEARCH){
-                //do stuff
-                //might want to hide keyboard
                 Log.i(LOG_TAG,"Search pressed");
                 hideKeyboard(v);
                 editText.setCursorVisible(false);
@@ -89,9 +64,7 @@ public class BookActivity extends AppCompatActivity
         });
 
         ImageView imgView = findViewById(R.id.search_icon);
-        assert imgView != null;
         imgView.setClipToOutline(true);
-        //@Override
         imgView.setOnClickListener(v -> {
             Log.v(LOG_TAG, "Search clicked");
             editText.clearFocus();
@@ -112,10 +85,8 @@ public class BookActivity extends AppCompatActivity
         // so the list can be populated in the user interface
         bookListView.setAdapter(adapter);
 
-
         bookListView.setOnItemClickListener((parent, view, position, id) -> {
             Book clickedBook = adapter.getItem(position);
-            assert clickedBook != null;
             String clickedUrl = clickedBook.getmUrl();
             if(!clickedUrl.equals("")) {
                 Intent i = new Intent(Intent.ACTION_VIEW);
@@ -130,7 +101,7 @@ public class BookActivity extends AppCompatActivity
         ConnectivityManager cm =
                 (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = cm != null ? cm.getActiveNetworkInfo() : null;
+        NetworkInfo activeNetwork =cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         mProgress.setVisibility(View.GONE);
@@ -168,7 +139,6 @@ public class BookActivity extends AppCompatActivity
 
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
-        assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -186,7 +156,7 @@ public class BookActivity extends AppCompatActivity
         ConnectivityManager cm =
                 (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = cm != null ? cm.getActiveNetworkInfo() : null;
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         if(!isConnected) {
@@ -208,6 +178,4 @@ public class BookActivity extends AppCompatActivity
         Log.e(LOG_TAG,"On Loader Reset");
         adapter.clear();
     }
-
-
 }

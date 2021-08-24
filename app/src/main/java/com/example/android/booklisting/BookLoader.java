@@ -12,7 +12,6 @@ public class BookLoader extends AsyncTaskLoader<List<Book>>
 
     public static final String LOG_TAG = BookLoader.class.getName();
 
-
     public BookLoader(Context context, String url) {
         super(context);
         mUrl = url;
@@ -31,7 +30,6 @@ public class BookLoader extends AsyncTaskLoader<List<Book>>
             return null;
         }
 
-        // Create a fake list of earthquake locations.
         return QueryUtils.fetchBookData(mUrl);
     }
 }
