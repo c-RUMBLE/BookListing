@@ -50,6 +50,9 @@ public class BookActivity extends AppCompatActivity
 
         editText = findViewById(R.id.search_text);
 
+        editText.setCursorVisible(false);
+        editText.requestFocus();
+
         editText.setOnClickListener(v -> editText.setCursorVisible(true));
 
         editText.setOnEditorActionListener((v, actionId, event) -> {
@@ -67,7 +70,6 @@ public class BookActivity extends AppCompatActivity
         imgView.setClipToOutline(true);
         imgView.setOnClickListener(v -> {
             Log.v(LOG_TAG, "Search clicked");
-            editText.clearFocus();
             hideKeyboard(v);
             editText.setCursorVisible(false);
             goSearch();
@@ -76,7 +78,6 @@ public class BookActivity extends AppCompatActivity
         // Find a reference to the {@link ListView} in the layout
         ListView bookListView = findViewById(R.id.list);
 
-        assert bookListView != null;
         bookListView.setEmptyView(mEmptyStateTextView);
 
         adapter = new BookAdapter(this, new ArrayList<>());
@@ -111,7 +112,7 @@ public class BookActivity extends AppCompatActivity
         }
         else {
             mEmptyStateTextView.setText(R.string.search_books);
-            if(getLoaderManager().getLoader(0) != null) {
+            if(LoaderManager.getInstance(this).getLoader(0) != null) {
                 mEmptyStateTextView.setVisibility(View.GONE);
                 LoaderManager.getInstance(this).initLoader(0,null, this);
             }
